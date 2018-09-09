@@ -8,10 +8,6 @@ namespace sort {
 		Merge,
 		Quick
 	};
-	enum Param {
-		linear=1,
-		binary
-	};
 }
 void Watch(int i, size_t size);
 template<class T>
@@ -52,7 +48,7 @@ void Insert(T*items, int indexInsertingAt, int indexInsertingFrom) {
 }
 
 template<class T>
-int Sort(T* items, size_t size, sort::Methods sm, unsigned char param=0) {
+int Sort(T* items, size_t size, sort::Methods sm) {
 	size_t swaps = 0;
 	
 	if (sm == sort::Bubble) {
