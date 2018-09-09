@@ -1,5 +1,6 @@
 #include "Sort.h"
 void Watch(int i, size_t size) {
+	//it work only with single cycle
 	static int c = 0;
 	if (size >= 100)
 		if (!(i % (size / 100))) {

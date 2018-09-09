@@ -8,6 +8,10 @@ namespace sort {
 		Merge,
 		Quick
 	};
+	enum Param {
+		linear=1,
+		binary
+	};
 }
 void Watch(int i, size_t size);
 template<class T>
@@ -28,13 +32,32 @@ bool Swap(T* items, size_t left, size_t right) {
 	}
 	else return false;
 }
+template<class T>
+int FindInsertionIndex(T* items, T value, size_t size) {
+	for (int index = 0; index < size; index++) {
+		if (value > items[index])
+			return index;
+	}
+	return 0;
+}
 
 template<class T>
-int Sort(T* items, size_t size, sort::Methods sm) {
+void Insert(T*items, int indexInsertingAt, int indexInsertingFrom) {
+	T temp = items[indexInsertingAt];
+	items[indexInsertingAt] = items[indexInsertingFrom];
+	for (int current = indexInsertingFrom; current > indexInsertingAt; current--) {
+		items[current] = items[current - 1];
+	}
+	items[indexInsertingAt + 1] = temp;
+}
+
+template<class T>
+int Sort(T* items, size_t size, sort::Methods sm, unsigned char param=0) {
 	size_t swaps = 0;
-	int w=0;
-	bool swapped;
+	
 	if (sm == sort::Bubble) {
+		bool swapped;
+		int w = 0;
 		do {
 			swapped = false;
 			for (int i = 1; i < size; i++) {
@@ -53,6 +76,17 @@ int Sort(T* items, size_t size, sort::Methods sm) {
 	}
 	else if (sm == sort::Insertion) {
 
+		int SortedRangeEndIndex = 1;
+
+		while (SortedRangeEndIndex < size) {
+			Watch(SortedRangeEndIndex, size);
+			if (items[SortedRangeEndIndex] < items[SortedRangeEndIndex - 1]) {
+				int InsertIndex = FindInsertionIndex(items, items[SortedRangeEndIndex], size);
+				Insert(items, InsertIndex, SortedRangeEndIndex);
+				++swaps;
+			}
+			++SortedRangeEndIndex;
+		}
 		return swaps;
 	}
 	else if (sm == sort::ByChoice) {
