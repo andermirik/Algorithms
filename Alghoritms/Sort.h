@@ -48,6 +48,21 @@ void Insert(T*items, int indexInsertingAt, int indexInsertingFrom) {
 }
 
 template<class T>
+int FindIndexOfSmallestFromIndex(T* items, int sortedRangeEnd, size_t size) {
+	T currentSmallest = items[sortedRangeEnd];
+	int currentSmallestIndex = sortedRangeEnd;
+	for (int i = sortedRangeEnd+1; i < size; i++) {
+		if (currentSmallest > items[i]) {
+			currentSmallest = items[i];
+			currentSmallestIndex = i;
+		}
+	}
+
+	return currentSmallestIndex;
+
+}
+
+template<class T>
 int Sort(T* items, size_t size, sort::Methods sm) {
 	size_t swaps = 0;
 	
@@ -86,6 +101,14 @@ int Sort(T* items, size_t size, sort::Methods sm) {
 		return swaps;
 	}
 	else if (sm == sort::ByChoice) {
+		
+		int SortedRangeEnd = 0;
+		while (SortedRangeEnd < size) {
+			int nextIndex = FindIndexOfSmallestFromIndex(items, SortedRangeEnd, size);
+			Swap(items, SortedRangeEnd, nextIndex);
+			SortedRangeEnd++;
+		}
+
 		return swaps;
 	}
 	else if (sm == sort::Merge) {
