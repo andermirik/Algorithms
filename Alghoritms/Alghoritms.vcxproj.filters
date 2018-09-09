@@ -18,9 +18,12 @@
     <ClCompile Include="MaitnTest.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Sort.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SortingMethods.h">
+    <ClInclude Include="Sort.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
