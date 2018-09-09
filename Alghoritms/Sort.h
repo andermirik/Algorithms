@@ -63,6 +63,38 @@ int FindIndexOfSmallestFromIndex(T* items, int sortedRangeEnd, size_t size) {
 }
 
 template<class T>
+void Merge(T*items, size_t size, T*left, T*right, size_t leftSize, size_t rightSize) {
+	int leftIndex = 0;
+	int rightIndex = 0;
+	int targetIndex = 0;
+	int remaining = leftSize + rightSize;
+
+	while (remaining > 0) {
+		if (leftIndex >= leftSize)
+		{
+			items[targetIndex] = right[rightIndex++];
+		}
+		else if (rightIndex >= rightSize)
+		{
+			items[targetIndex] = left[leftIndex++];
+		}
+		else if (left[leftIndex]<right[rightIndex])
+		{
+			items[targetIndex] = left[leftIndex++];
+		}
+		else
+		{
+			items[targetIndex] = right[rightIndex++];
+		}
+
+		targetIndex++;
+		remaining--;
+	}
+	delete[]left;
+	delete[]right;
+}
+
+template<class T>
 int Sort(T* items, size_t size, sort::Methods sm) {
 	size_t swaps = 0;
 	
@@ -105,6 +137,7 @@ int Sort(T* items, size_t size, sort::Methods sm) {
 		int SortedRangeEnd = 0;
 		while (SortedRangeEnd < size) {
 			int nextIndex = FindIndexOfSmallestFromIndex(items, SortedRangeEnd, size);
+			Watch(SortedRangeEnd, size);
 			Swap(items, SortedRangeEnd, nextIndex);
 			SortedRangeEnd++;
 		}
@@ -112,6 +145,25 @@ int Sort(T* items, size_t size, sort::Methods sm) {
 		return swaps;
 	}
 	else if (sm == sort::Merge) {
+
+		if (size <= 1)
+			return 0;
+
+		size_t leftSize = size / 2;
+		size_t rightSize = size - leftSize;
+
+		T*left = new T[leftSize];
+		T*right = new T[rightSize];
+
+		for (int i = 0; i < leftSize; i++)
+			left[i] = items[i];
+		for (int i = 0; i < rightSize; i++)
+			right[i] = items[leftSize + i];
+
+		Sort(left, leftSize, sort::Merge);		
+		Sort(right, rightSize, sort::Merge);
+
+		Merge(items, size, left, right, leftSize, rightSize);
 		return swaps;
 	}
 	else if (sm == sort::Quick) {
