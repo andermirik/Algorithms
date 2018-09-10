@@ -5,6 +5,7 @@ namespace sort {
 		Bubble,
 		Insertion,
 		ByChoice,
+		Shaker,
 		Merge,
 		Quick
 	};
@@ -140,6 +141,32 @@ int Sort(T* items, size_t size, sort::Methods sm) {
 			Watch(SortedRangeEnd, size);
 			Swap(items, SortedRangeEnd, nextIndex);
 			SortedRangeEnd++;
+		}
+
+		return swaps;
+	}
+	else if (sm == sort::Shaker) {
+		size_t left = 0;
+		size_t right = size-1;
+
+		while (left < right) {
+			
+			for (int i = left; i < right; i++) {
+				if (items[i] > items[i + 1]) {
+					Swap(items, i, i + 1);
+					swaps++;
+				}
+			}
+			right--;
+
+			for (int i = right; i > left; i--) {
+				if (items[i] < items[i - 1]) {
+					Swap(items, i, i - 1);
+					swaps++;
+				}
+			}
+			left++;
+			Watch((left*2), size);
 		}
 
 		return swaps;
