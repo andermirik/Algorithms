@@ -1,7 +1,9 @@
 #include "Sort.h"
-#include "windows.h"
 #include "Search.h"
 
+#include "List.h"
+
+#include "windows.h"
 int TestBubbeSort(size_t count, int*arr=0) {
 	int start_sorting = GetTickCount();
 	//358 sec: 100k elements
@@ -109,6 +111,11 @@ int main() {
 	//std::cout << TestByChoiceSort(100000)<<std::endl;
 	//std::cout << TestShakerSort(100000)<<std::endl;
 	//std::cout << TestMergeSort(10000000) << std::endl;
-	std::cout << TestQSort(100000000) << std::endl;
+	//std::cout << TestQSort(100000000) << std::endl;
+
+	List<int> list; //ERROR
+	list.AddElement(1);
+	list.AddElement(2);
+	list.AddElement(3);
 	system("pause>nul");
 }
