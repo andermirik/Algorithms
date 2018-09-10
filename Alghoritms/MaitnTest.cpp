@@ -1,5 +1,6 @@
 #include "Sort.h"
 #include "windows.h"
+#include "Search.h"
 
 int TestBubbeSort(size_t count, int*arr=0) {
 	int start_sorting = GetTickCount();
@@ -17,7 +18,6 @@ int TestBubbeSort(size_t count, int*arr=0) {
 
 	return GetTickCount() - start_sorting;
 }
-
 int TestInsertionSort(size_t count, int*arr = 0) {
 	int start_sorting = GetTickCount();
 	//100k elements: 8.6 sec
@@ -34,7 +34,6 @@ int TestInsertionSort(size_t count, int*arr = 0) {
 
 	return GetTickCount() - start_sorting;
 }
-
 int TestByChoiceSort(size_t count, int*arr = 0) {
 	int start_sorting = GetTickCount();
 
@@ -51,7 +50,6 @@ int TestByChoiceSort(size_t count, int*arr = 0) {
 
 	return GetTickCount() - start_sorting;
 }
-
 int TestShakerSort(size_t count, int*arr = 0) {
 	int start_sorting = GetTickCount();
 	//100k elements: 289 sec
@@ -68,7 +66,6 @@ int TestShakerSort(size_t count, int*arr = 0) {
 
 	return GetTickCount() - start_sorting;
 }
-
 int TestMergeSort(size_t count, int*arr = 0) {
 	int start_sorting = GetTickCount();
 	//1kk elements: 1400ms 
