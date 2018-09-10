@@ -95,6 +95,26 @@ void Merge(T*items, size_t size, T*left, T*right, size_t leftSize, size_t rightS
 	delete[]right;
 }
 
+template <class T>
+void qsort(T*items,int b, int e) {
+	int l = b;
+	int r = e;
+
+	T piv = items[(l + r)/2];
+	while (l <= r) {
+		while (items[l] <= piv)
+			l++;
+		while (items[r] > piv)
+			r--;
+		if (l <= r)
+			Swap(items, l++, r--);
+	}
+	if (b < r)
+		qsort(items, b, r);
+	if (e < l)
+		qsort(items, l, e);
+}
+
 template<class T>
 int Sort(T* items, size_t size, sort::Methods sm) {
 	size_t swaps = 0;
@@ -194,6 +214,9 @@ int Sort(T* items, size_t size, sort::Methods sm) {
 		return swaps;
 	}
 	else if (sm == sort::Quick) {
+
+		qsort<T>(items, 0, size - 1);
+
 		return swaps;
 	}
 }
