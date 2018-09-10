@@ -1,32 +1,33 @@
 #pragma once
 #include "List.h"
-template<typename Type>
-struct Unit {
-	Type key;
-	Unit*next;
-	Unit*prev;
-};
 
 template<typename Type>
 class List {
 private:
-	Unit<Type>* begin;
-	Unit<Type>* end;
+
+	struct Unit {
+		Type key;
+		Unit*next;
+		Unit*prev;
+	};
+
+	Unit* begin;
+	Unit* end;
 public:
 	List() {
 		begin = nullptr;
 		end = nullptr;
 	}
 
-	Unit<Type>* Begin() {
+	Unit* Begin() {
 		return begin;
 	}
-	Unit<Type>* End() {
+	Unit* End() {
 		return end;
 	}
 	void AddElement(Type key) {
 		if (!begin) {
-			begin = new Unit<Type>;
+			begin = new Unit;
 			begin->key = key;
 			begin->next = nullptr;
 			begin->prev = nullptr;
@@ -34,7 +35,7 @@ public:
 			return;
 		}
 		else {
-			end->next = new Unit<Type>;
+			end->next = new Unit;
 			end->next->prev = end;
 			end->next->next = nullptr;
 			end = end->next;
