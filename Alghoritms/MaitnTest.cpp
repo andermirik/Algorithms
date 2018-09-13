@@ -107,13 +107,10 @@ int TestQSort(size_t count, int*arr = 0) {
 int main() {
 
 	List<int> list;
-	list.AddElement(1);
-	list.AddElement(2);
-	list.AddElement(3);
-	list.AddElement(4);
-	list.AddElement(5);
+	for(int i =1 ; i<=4; i++)
+	list.AddElement(i);
 	
-	list.DeleteSortedItemsAtInterval(2, 4);
+	list.DeleteSortedItemsAtInterval(1, 6);
 
 	list.print();
 	system("pause>nul");

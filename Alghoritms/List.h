@@ -54,6 +54,8 @@ public:
 		return 0;
 	}
 	void print() {
+		if (!begin)
+			return;
 		std::cout << "{\n";
 		for (auto temp = begin; temp != end->next; temp = temp->next) {
 			std::cout << "  " << temp->key << ":";
@@ -123,14 +125,36 @@ public:
 	bool DeleteSortedItemsAtInterval(size_t left, size_t right) {
 		bool result = false;
 		//1 2 3 4 5
+		if (right > size)
+			right = size;
 		int i = 1;
-		for (auto it = begin; it != end->next&&i<=right; it = it->next,i++) {
+		for (auto it = begin; it != end->next&&i <= right; i++) {
 			if (i >= left) {
-				auto temp = it;
+				if (it == begin) {
+					auto ToDelete = begin;
+					begin = begin->next;
+					if (begin)
+						begin->prev = nullptr;
+					delete ToDelete;
+					it = begin;
+					continue;
+				}
+				if (it == end) {
+					auto temp = end;
+					end = end->prev;
+					end->next = nullptr;
+					delete temp;
+					continue;
+				}
+
+				auto ToDelete = it;
+				it->prev->next = it->next;
+				it->next->prev = it->prev;
 				it = it->next;
-				DeleteItem(temp->key);
+				delete ToDelete;
 				it = it->prev;
 			}
+			it = it->next;
 		}
 
 		return result;
@@ -140,6 +164,8 @@ public:
 		return size;
 	}
 	~List() {
+		if (!begin)
+			return;
 		Unit* temp = nullptr;
 		while (begin->next) {
 			temp = begin;
