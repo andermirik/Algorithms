@@ -106,16 +106,15 @@ int TestQSort(size_t count, int*arr = 0) {
 
 int main() {
 
-	//std::cout<<TestBubbeSort(100000);
-	//std::cout << TestInsertionSort(100000)<<std::endl;
-	//std::cout << TestByChoiceSort(100000)<<std::endl;
-	//std::cout << TestShakerSort(100000)<<std::endl;
-	//std::cout << TestMergeSort(10000000) << std::endl;
-	//std::cout << TestQSort(100000000) << std::endl;
-
-	List<int> list; //ERROR
+	List<int> list;
 	list.AddElement(1);
 	list.AddElement(2);
 	list.AddElement(3);
+	list.AddElement(4);
+	list.AddElement(5);
+	
+	list.DeleteSortedItemsAtInterval(2, 4);
+
+	list.print();
 	system("pause>nul");
 }
