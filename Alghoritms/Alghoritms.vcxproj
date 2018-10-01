@@ -120,6 +120,8 @@
     <ClCompile Include="Sort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Search.h" />
     <ClInclude Include="Sort.h" />

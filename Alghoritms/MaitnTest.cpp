@@ -2,7 +2,8 @@
 #include "Search.h"
 
 #include "List.h"
-
+#include "Graph.h"
+#include "BinaryTree.h"
 #include "windows.h"
 int TestBubbeSort(size_t count, int*arr=0) {
 	int start_sorting = GetTickCount();
@@ -105,13 +106,29 @@ int TestQSort(size_t count, int*arr = 0) {
 
 
 int main() {
-
-	List<int> list;
-	for(int i =1 ; i<=4; i++)
-	list.AddElement(i);
 	
-	list.DeleteSortedItemsAtInterval(1, 6);
+	BinaryTree<int> tree;
+	tree.Add(4, 4);
+	tree.Add(2, 2);
+	tree.Add(5, 5);
+	tree.Add(1, 1);
+	tree.Add(3, 3);
+	tree.Add(7, 7);
+	tree.Add(6, 6);
+	tree.Add(8, 8);
 
-	list.print();
+	std::cout << "Preorder:" << std::endl;
+	tree.Preorder([](BinaryTree<int>::Node*node) {
+		std::cout << node->key << " ";
+	});
+	std::cout << "\nInorder:" << std::endl;
+	tree.Inorder([](BinaryTree<int>::Node*node) {
+		std::cout << node->key << " ";
+	});
+	std::cout << "\nPostorder:" << std::endl;
+	tree.Postorder([](BinaryTree<int>::Node*node) {
+		std::cout << node->key << " ";
+	});
+
 	system("pause>nul");
 }
