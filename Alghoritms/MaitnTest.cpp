@@ -107,28 +107,31 @@ int TestQSort(size_t count, int*arr = 0) {
 
 int main() {
 	
-	BinaryTree<int> tree;
-	tree.Add(4, 4);
-	tree.Add(2, 2);
-	tree.Add(5, 5);
-	tree.Add(1, 1);
-	tree.Add(3, 3);
-	tree.Add(7, 7);
-	tree.Add(6, 6);
-	tree.Add(8, 8);
+	BinaryTree<const char*> tree;
+	tree.Add(4, "hello");
+	tree.Add(2, "hi");
+	tree.Add(5, "tututu");
+	tree.Add(1, "rofl");
+	tree.Add(3, "easy");
+	tree.Add(7, "const char*");
+	tree.Add(6, "fuck");
+	tree.Add(8, "Oh no!");
 
 	std::cout << "Preorder:" << std::endl;
-	tree.Preorder([](BinaryTree<int>::Node*node) {
-		std::cout << node->key << " ";
+	int summ=0;
+	tree.Preorder([&summ](BinaryTree<const char*>::Node*node) {
+		summ += node->key;
+		std::cout << node->key<<";"<<node->item<< "\n";
 	});
+	
 	std::cout << "\nInorder:" << std::endl;
-	tree.Inorder([](BinaryTree<int>::Node*node) {
-		std::cout << node->key << " ";
+	tree.Inorder([](BinaryTree<const char*>::Node*node) {
+		std::cout << node->key << ";" << node->item << "\n";
 	});
 	std::cout << "\nPostorder:" << std::endl;
-	tree.Postorder([](BinaryTree<int>::Node*node) {
-		std::cout << node->key << " ";
+	tree.Postorder([](BinaryTree<const char*>::Node*node) {
+		std::cout << node->key << ";" << node->item << "\n";
 	});
-
+	tree.Clear();
 	system("pause>nul");
 }

@@ -4,17 +4,17 @@
 template <class Type>
 class BinaryTree {
 public: struct Node {
-		int key;
-		Type item;
-		Node*Left;
-		Node*Right;
-		Node(int key, Type item) {
-			this->key = key;
-			this->Left = nullptr;
-			this->Right = nullptr;
-			this->item = item;
-		}
-	};
+	int key;
+	Type item;
+	Node*Left;
+	Node*Right;
+	Node(int key, Type item) {
+		this->key = key;
+		this->item = item;
+		this->Left = nullptr;
+		this->Right = nullptr;
+	}
+};
 
 public: Node*root;
 private: int count;
@@ -115,12 +115,12 @@ public: bool Remove(int key) {
 }
 
 public: bool Contains(int key) {
-	return FindWithParent(key).first!=nullptr;
+	return FindWithParent(key).first != nullptr;
 }
-public: std::pair<Node*, Node*> FindWithParent(int key){
+public: std::pair<Node*, Node*> FindWithParent(int key) {
 	Node*current = root;
 	Node*parent = nullptr;
-	
+
 	while (current != nullptr) {
 		if (current->key > key) {
 			parent = current;
@@ -134,17 +134,26 @@ public: std::pair<Node*, Node*> FindWithParent(int key){
 			break;
 		}
 	}
-	return std::pair<Node*,Node*>(current, parent);
+	return std::pair<Node*, Node*>(current, parent);
 }
 public: void Clear() {
-	Postorder([](Node* node) {
+	Postorder([this](Node* node) {
+		if (std::is_array<Type>::value && !std::is_same<Type, const char*>::value) {
+			delete[] node->item;
+			node->item = nullptr;
+		}
+		if (std::is_pointer<Type>::value && !std::is_same<Type, const char*>::value) {
+			delete node->item;
+			node->item = nullptr;
+		}
 		delete node;
 		node = nullptr;
 	});
+	root = nullptr;
 }
 public: void Preorder(std::function<void(Node*)> Action) {
 	Preorder(Action, root);
-}	
+}
 private: void Preorder(std::function<void(Node*)> Action, Node*node) {
 	if (node != nullptr) {
 		Action(node);
@@ -175,10 +184,19 @@ private: void Inorder(std::function<void(Node*)>Action, Node* node) {
 public: int Count() {
 	return count;
 }
-~BinaryTree() {
+public: ~BinaryTree() {
 	Postorder([](Node* node) {
+		if (std::is_array<Type>::value && !std::is_same<Type, const char*>::value) {
+			delete[] node->item;
+			node->item = nullptr;
+		}
+		if (std::is_pointer<Type>::value && !std::is_same<Type, const char*>::value) {
+			delete node->item;
+			node->item = nullptr;
+		}
 		delete node;
 		node = nullptr;
 	});
+	root = nullptr;
 }
 };
