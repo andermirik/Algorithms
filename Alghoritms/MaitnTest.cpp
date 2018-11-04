@@ -116,7 +116,7 @@ int main() {
 	tree.Add(7, "const char*");
 	tree.Add(6, "fuck");
 	tree.Add(8, "Oh no!");
-
+	
 	std::cout << "Preorder:" << std::endl;
 	int summ=0;
 	tree.Preorder([&summ](BinaryTree<const char*>::Node*node) {

@@ -138,14 +138,6 @@ public: std::pair<Node*, Node*> FindWithParent(int key) {
 }
 public: void Clear() {
 	Postorder([this](Node* node) {
-		if (std::is_array<Type>::value && !std::is_same<Type, const char*>::value) {
-			delete[] node->item;
-			node->item = nullptr;
-		}
-		if (std::is_pointer<Type>::value && !std::is_same<Type, const char*>::value) {
-			delete node->item;
-			node->item = nullptr;
-		}
 		delete node;
 		node = nullptr;
 	});
@@ -186,14 +178,6 @@ public: int Count() {
 }
 public: ~BinaryTree() {
 	Postorder([](Node* node) {
-		if (std::is_array<Type>::value && !std::is_same<Type, const char*>::value) {
-			delete[] node->item;
-			node->item = nullptr;
-		}
-		if (std::is_pointer<Type>::value && !std::is_same<Type, const char*>::value) {
-			delete node->item;
-			node->item = nullptr;
-		}
 		delete node;
 		node = nullptr;
 	});
