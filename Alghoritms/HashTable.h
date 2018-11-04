@@ -86,7 +86,22 @@ public:void AddElement(int key) {
 		it->next = new HT::ChainNode(key);
 	}
 }
+
+public: HT::ChainNode* Search(int key) {
+	int ht = hash_function(key, size);
+	return vector[ht].chain_start;
+}
+public: void Delete(int key) {
+	int ht = hash_function(key, size);
+	auto it = vector[ht].chain_start;
+	if (it) {
+		auto temp = it;
+		vector[ht].chain_start = it->next;
+		delete temp;
+	}
+}
 public: void print() {
+	std::cout << "printed:\n";
 	for (int i = 0; i < size; i++) {
 		if (vector[i].chain_start) {
 			std::printf("%3d:%5d\n", i, vector[i].chain_start->info);

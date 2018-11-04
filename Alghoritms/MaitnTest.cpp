@@ -140,10 +140,13 @@ int main() {
 	//HashTable ht(100, HT::HF::hash_Convol);
 	//HashTable ht(100, HT::HF::hash_mod);
 	for (int i = 0; i < 200; i++) {
-		ht.AddElement(rand()%1000);
+		ht.AddElement(i);//rand()%1000);
 	}
 	ht.print();
-
-
+	auto it = ht.Search(5);
+	for (int i = 0; i < 200; i++) {
+		ht.Delete(i);
+	}
+	ht.print();
 	system("pause>nul");
 }
