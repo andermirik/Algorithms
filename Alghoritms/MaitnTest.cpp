@@ -4,6 +4,8 @@
 #include "List.h"
 #include "Graph.h"
 #include "BinaryTree.h"
+#include "HashTable.h"
+
 #include "windows.h"
 int TestBubbeSort(size_t count, int*arr=0) {
 	int start_sorting = GetTickCount();
@@ -104,9 +106,7 @@ int TestQSort(size_t count, int*arr = 0) {
 	return GetTickCount() - start_sorting;
 }
 
-
-int main() {
-	
+void TestBT() {
 	BinaryTree<const char*> tree;
 	tree.Add(4, "hello");
 	tree.Add(2, "hi");
@@ -116,14 +116,14 @@ int main() {
 	tree.Add(7, "const char*");
 	tree.Add(6, "fuck");
 	tree.Add(8, "Oh no!");
-	
+
 	std::cout << "Preorder:" << std::endl;
-	int summ=0;
+	int summ = 0;
 	tree.Preorder([&summ](BinaryTree<const char*>::Node*node) {
 		summ += node->key;
-		std::cout << node->key<<";"<<node->item<< "\n";
+		std::cout << node->key << ";" << node->item << "\n";
 	});
-	
+
 	std::cout << "\nInorder:" << std::endl;
 	tree.Inorder([](BinaryTree<const char*>::Node*node) {
 		std::cout << node->key << ";" << node->item << "\n";
@@ -133,5 +133,17 @@ int main() {
 		std::cout << node->key << ";" << node->item << "\n";
 	});
 	tree.Clear();
+}
+
+int main() {
+	HashTable ht(100, HT::HF::hash_SQ);
+	//HashTable ht(100, HT::HF::hash_Convol);
+	//HashTable ht(100, HT::HF::hash_mod);
+	for (int i = 0; i < 200; i++) {
+		ht.AddElement(rand()%1000);
+	}
+	ht.print();
+
+
 	system("pause>nul");
 }

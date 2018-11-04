@@ -21,6 +21,9 @@ public:
 		static Type lastRequest;
 		static Unit*lastReturn;
 		
+		if (!lastReturn)
+			wasRequest = false;
+
 		if (!wasRequest) {
 			wasRequest = true;
 			lastRequest = key;
